@@ -60,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    ActivityRecognition.activityStream(runForegroundService: false);
     super.dispose();
   }
 
