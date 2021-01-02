@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _init() async {
     if (await Permission.activityRecognition.request().isGranted) {
       activityStream =
-          ActivityRecognition.activityStream(runForegroundService: true);
+          ActivityRecognition.activityStream(runForegroundService: false);
       activityStream.listen(onData);
     }
   }
@@ -123,7 +123,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       leading: Text(
-                        entry.type.toString().split('.').last,
+                        entry.type
+                            .toString()
+                            .split('.')
+                            .last
+                            .replaceAll('_', ' '),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
