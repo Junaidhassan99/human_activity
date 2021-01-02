@@ -59,6 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    ActivityRecognition.activityStream(runForegroundService: false);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -82,14 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${latestActivity.type.toString().split('.').last}',
+                          '${latestActivity.type.toString().split('.').last.replaceAll('_', ' ')}',
                           style: TextStyle(fontSize: 60),
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         _dataTextWidget(
-                            20, 'Confidence', '${latestActivity.confidence}'),
+                            20, 'Confidence', '${latestActivity.confidence} %'),
                         SizedBox(
                           height: 5,
                         ),
@@ -112,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           .accentColor
                           .withOpacity((idx + 1) / (_events.length)),
                       trailing: Text(
-                        '${DateFormat.jms().format(latestActivity.timeStamp)}',
+                        '${DateFormat.jms().format(entry.timeStamp)}',
                         style: TextStyle(
                           color: Colors.white,
                         ),
